@@ -1,0 +1,1370 @@
+/* ==================================================
+        CSS VARIABLES AND BASIC RULES
+   ================================================== */
+:root {
+    --primary-text-col: #0D0D0D;
+    --col-bg-cont: #D9D9D9;
+    --col-cards-bg: #DFDFDF;
+    --col-nav-bg: #E9E9E9;
+    --col-drkmode-bg: #202020;
+    --col-drkmode-cards-bg: #262626;
+    --col-drkmode-nav-bg: #1A1A1A;
+    --colo-drkmode-fx: #7A7A7A;
+    --col-prim-azraeth: #226c68;
+    --col-sec-azraeth: #508481;
+    --col-tert-azraeth: #113836;
+}
+
+/* Universal selector to target all elements */
+* {
+    margin: 0;
+    /* Remove default margins */
+    padding: 0;
+    /* Remove default padding */
+    box-sizing: border-box;
+    /* Include padding and border in element width and height calculations */
+    font-family: "Poppins", sans-serif;
+    /* Set a default font for consistency */
+}
+
+/* Apply box-sizing: inherit to specific elements as needed */
+input,
+button,
+textarea,
+select {
+    box-sizing: inherit;
+    /* Inherit box-sizing from parent element */
+}
+
+html,
+body {
+    height: 100%;
+    /* Set height for viewport-filling layouts */
+}
+
+ul {
+    list-style: none;
+    /* Remove default list markers */
+}
+
+a {
+    text-decoration: none;
+    /* Remove default underline from links */
+}
+
+a:visited,
+a:link {
+    color: var(--primary-text-col);
+}
+
+/* Root font size */
+html {
+    font-size: 16px;
+}
+
+body {
+    background: var(--col-bg-cont);
+    display: grid;
+    grid-template-rows: auto 4fr;
+    grid-template-columns: auto;
+    grid-template-areas:
+        "header header header header"
+        "aside main main main"
+        "aside main main main"
+        "aside main main main"
+        "aside main main main";
+    color: var(--primary-text-col);
+}
+
+/* Dark Mode General Styles */
+body.drkModeOn {
+    background-color: var(--col-drkmode-bg);
+    color: var(--col-bg-cont);
+}
+
+body.drkModeOn a {
+    color: var(--col-bg-cont);
+}
+
+
+
+
+/* ==================================================
+                 NAVBAR STRUCTURE
+   ================================================== */
+
+header {
+    grid-area: header;
+}
+
+.navbar {
+    height: 15vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--col-nav-bg);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.logo {
+    font-family: "Antonio", "Helvetica Neue", "Helvetica", "Arial", "Lucida Grande";
+    font-size: 2.5rem;
+    font-weight: 300;
+    letter-spacing: 0.5rem;
+    color: var(--primary-text-col);
+    margin-left: 1.5rem;
+    cursor: default;
+}
+
+/* Navbar links */
+.navbar-links {
+    list-style: none;
+    margin-right: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.navbar-links .lang {
+    display: flex;
+    align-items: flex-end;
+
+    svg {
+        width: 1.3rem;
+        height: auto;
+        margin-right: 0.2rem;
+    }
+}
+
+.navbar-links a {
+    font-family: "Poppins", Sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: var(--primary-text-col);
+    text-decoration: none;
+}
+
+/* Styles for the switch theme button */
+.switch {
+    width: 4rem;
+    height: 2rem;
+    padding: 0.3125rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    border-radius: 6.25rem;
+    border: #0D0D0D solid 0.125rem;
+    background-color: #132b41;
+    margin: 0 1rem;
+    cursor: pointer;
+}
+
+.switch svg {
+    width: 1rem;
+    height: auto;
+    fill: #f0db20;
+}
+
+/* Switch toggle sphere styles */
+.navbar li:last-child::before {
+    content: "";
+    position: absolute;
+    height: 100%;
+    left: 0;
+    width: 50%;
+    border-radius: 100%;
+    background-color: var(--col-nav-bg);
+    transition: all 0.3s ease-in-out;
+    border: solid thin var(--primary-text-col);
+
+}
+
+/* Styles for the navbar and sidebar toggle button */
+.toggle-btton {
+    position: fixed;
+    display: none;
+    opacity: 90%;
+    background-color: var(--col-nav-bg);
+    color: var(--primary-text-col);
+    border: none;
+    box-shadow: 0.12rem 0 0.5rem rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+
+    /*Change user icon color from user interaction. */
+    svg.interact {
+        color: var(--col-prim-azraeth);
+    }
+}
+
+body.drkModeOn .toggle-btton {
+    background-color: var(--primary-text-col);
+    color: var(--col-bg-cont);
+
+
+    /*Change user icon color from user interaction. */
+    svg.interact {
+        color: var(--col-prim-azraeth);
+    }
+
+}
+
+
+/* Styles for navbar dropdown menu */
+.navbar-toggle {
+    width: 100vw;
+    height: 3.4vh;
+    border-radius: 0 0 100% 100%;
+    z-index: 2;
+
+    svg {
+        rotate: 90deg;
+        height: 100%;
+        width: auto;
+        transition: transform 0.3s ease;
+    }
+}
+
+/* ----------THEME STYLES ----------------*/
+/* Change the position of the toggle sphere in the switch btton */
+.navbar li:last-child.drkModeOn::before {
+    transform: translateX(98%);
+    border: solid thin var(--col-nav-bg);
+}
+
+/* Change the color of the reference img when Darkmode is enabled */
+.navbar li:last-child.drkModeOn svg:first-child {
+    fill: var(--col-nav-bg);
+}
+
+/* Toggle btton bg when Darkmode is enabled */
+.navbar li:last-child.drkModeOn {
+    background-color: #d9a601;
+    border: solid 0.125rem var(--col-nav-bg);
+}
+
+/* Toggle btton bg when Lightmode is enabled */
+body.drkModeOn .navbar {
+    background-color: var(--col-drkmode-nav-bg);
+}
+
+/* Color for the theme options icons */
+body.drkModeOn .logo {
+    color: var(--col-bg-cont);
+}
+
+/* navbar links color */
+body.drkModeOn .navbar-links a {
+    color: var(--col-bg-cont);
+}
+
+/* change lang icon color */
+body.drkModeOn .navbar-links .lang {
+    fill: var(--col-bg-cont);
+}
+
+
+
+/* ==================================================
+                 ASIDE STRUCTURE
+   ================================================== */
+
+aside {
+    grid-area: aside;
+    position: sticky;
+    height: 100%;
+    width: 34vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 65% 17.5% 17.5%;
+    grid-template-areas:
+        "presentation-card presentation-card presentation-card"
+        "social-media-cards social-media-cards social-media-cards"
+        "download-cv-icon download-cv-icon download-cv-icon";
+    justify-items: center;
+    align-items: center;
+    justify-self: center;
+    align-self: center;
+    box-shadow: 0px 0px 0.25rem 0px rgba(0, 0, 0, 0.25);
+    transition: transform 0.3s ease;
+}
+
+
+/* CARD APPEREANCE CLASS, VERY COMMON */
+.card {
+    background-color: var(--col-cards-bg);
+    box-shadow: 0px 0.25rem 0.25rem 0px rgba(0, 0, 0, 0.25);
+    border-radius: 0.6rem;
+}
+
+
+/* Presentation Card Styles */
+.presentation {
+    display: grid;
+    grid-template-rows: auto auto auto auto;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+        "profile-pic profile-pic profile-pic"
+        "presentation-title presentation-title presentation-title"
+        "presentation-subtitle presentation-subtitle presentation-subtitle"
+        "presentation-txt presentation-txt presentation-txt";
+    grid-area: presentation-card;
+    width: 90%;
+    height: 90%;
+    border-radius: 3rem;
+    overflow-x: hidden;
+    padding: 1rem;
+    gap: 0.3rem;
+}
+
+.profile-pic {
+    grid-area: profile-pic;
+    height: 100%;
+    min-height: 5rem;
+    max-height: 50rem;
+    width: auto;
+    justify-self: start;
+    border: 0.3rem solid #1CB698;
+    border-radius: 100%;
+}
+
+.presentation-title {
+    grid-area: presentation-title;
+    font-family: monospace, "Poppins", Sans-serif;
+    font-size: 2rem;
+}
+
+.presentation-subtitle {
+    grid-area: presentation-subtitle;
+    font-family: monospace, "Poppins", Sans-serif;
+    font-size: 1.2rem;
+}
+
+/* Typing animation */
+.typing-anim {
+    border-right: 0.14rem solid;
+    white-space: nowrap;
+    overflow: hidden;
+    min-height: 1.5em;
+    animation: typing 2.3s steps(30, end),
+        blink-caret .75s step-end infinite;
+}
+
+@keyframes typing {
+    from {
+        width: 0
+    }
+
+    to {
+        width: 98%
+    }
+}
+
+@keyframes blink-caret {
+
+    from,
+    to {
+        border-color: transparent
+    }
+
+    50% {
+        border-color: var(--col-prim-azraeth);
+    }
+}
+
+
+.presentation-txt {
+    grid-area: presentation-txt;
+    font-size: 0.8rem;
+    margin-bottom: 1rem;
+}
+
+/* Social Icons & Download CV Styles*/
+
+.social-media-container {
+    grid-area: social-media-cards;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0;
+    grid-auto-flow: row;
+    justify-items: center;
+    width: 100%;
+}
+
+.social {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.7rem 1rem;
+    transition: transform 0.3s ease-out;
+}
+
+.card svg {
+    width: 1.5rem;
+    height: auto;
+    color: var(--primary-text-col);
+}
+
+.download-cv {
+    grid-area: download-cv-icon;
+    padding: 0.3rem 1rem;
+    background-color: var(--col-cards-bg);
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s ease-out;
+}
+
+.download-cv p {
+    color: var(--primary-text-col);
+    font-size: 0.8rem;
+}
+
+/* Aside Btton Display Styles */
+
+.aside-toggle {
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 0 100% 100% 0;
+    width: 2.5rem;
+    height: 3rem;
+    z-index: 3;
+}
+
+.aside-toggle.initial-load {
+    animation: flicker 1s ease-in-out 6;
+}
+
+@keyframes flicker {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+        background-color: var(--col-prim-azraeth);
+        scale: (1.2);
+    }
+}
+
+aside.active {
+    background: rgba(217, 217, 217, 0.99);
+}
+
+
+/* Dark Mode Styles */
+body.drkModeOn .card {
+    background-color: var(--col-drkmode-cards-bg);
+}
+
+body.drkModeOn aside.active {
+    background-color: rgba(30, 30, 30, .99);
+}
+
+body.drkModeOn aside .card svg,
+body.drkModeOn aside .card p {
+    color: var(--col-bg-cont);
+}
+
+body.drkModeOn .aside-toggle {
+    background-color: var(--col-drkmode-nav-bg);
+}
+
+
+
+/* ==================================================
+                 MAIN STRUCTURE
+   ================================================== */
+
+main {
+    grid-area: main;
+    justify-self: center;
+    align-self: center;
+    width: 98%;
+    height: 98%;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+}
+
+main>* {
+    margin: 0 1.5rem;
+}
+
+section h2 {
+    margin-bottom: 1.8rem;
+    font-size: 1.8rem;
+}
+
+.main-sections {
+    margin-top: 1.5rem;
+    margin-bottom: 6rem;
+}
+
+/* ==================================================
+                 SKILLS SECTION
+   ================================================== */
+
+.tabs ul {
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 0.3rem;
+    padding-left: 0.1rem;
+    border-bottom: 0.1rem solid rgba(0, 0, 0, 0.20);
+
+    li button {
+        border: 0.1rem solid rgba(0, 0, 0, 0.15);
+        border-bottom: none;
+        padding: 0.33rem 0.66rem;
+        border-radius: 1rem 1rem 0 0;
+        background-color: var(--col-nav-bg);
+        font-size: 0.8rem;
+    }
+
+    li button {
+        cursor: pointer;
+    }
+
+    li button[data-active="true"] {
+        background-color: var(--col-prim-azraeth);
+        color: var(--col-bg-cont);
+    }
+}
+
+/* icons structure */
+.tabs-content section {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    align-items: center;
+    justify-items: center;
+}
+
+.tabs-content section>* {
+    margin: 1.7rem 0;
+}
+
+/* hide anothers tabs */
+.tabs-content section[data-active="false"] {
+    display: none;
+}
+
+/* Icons size */
+.tabs-content section svg {
+    width: 3rem;
+    height: auto;
+}
+
+/* Icons squared bg light mode */
+.tabs-content section svg.drkbg-icon rect {
+    fill: var(--col-nav-bg);
+}
+
+/* Certifications Tab */
+
+section.certifications {
+    display: block;
+    margin: 0 1rem;
+    padding-bottom: 1rem;
+
+    summary {
+        cursor: pointer;
+    }
+
+    details[open] summary {
+        color: var(--col-prim-azraeth);
+    }
+
+    details>div {
+        margin: 1rem;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: auto;
+        gap: 1rem;
+        align-items: start;
+        justify-items: center;
+        font-size: 1rem;
+        text-align: center;
+    }
+
+    a {
+        font-size: 0.8rem;
+        margin-top: 1rem;
+        display: block;
+        transition: transform 0.3s ease;
+    }
+
+    img {
+        width: 100%;
+    }
+}
+
+
+
+/* DrkMode Styles */
+
+body.drkModeOn .tabs-content section svg.drkbg-icon {
+
+    rect {
+        fill: var(--col-drkmode-bg);
+    }
+}
+
+
+
+body.drkModeOn .tabs ul {
+
+    li button[data-active="true"] {
+        background-color: var(--col-prim-azraeth);
+    }
+
+    li button {
+        background-color: var(--col-drkmode-nav-bg);
+        color: var(--col-bg-cont);
+    }
+}
+
+/* ==================================================
+                 PROJECTS SECTION
+   ================================================== */
+
+section.projects {
+
+    div.projects-thumbnails-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+        gap: 1.5rem;
+    }
+
+    a {
+        margin-top: 1rem;
+        display: block;
+        transition: transform 0.3s ease;
+        text-align: center;
+    }
+
+    img {
+        width: 100%;
+    }
+}
+
+/* ==================================================
+                 CONTACT SECTION
+   ================================================== */
+section.contact {
+    display: grid;
+    grid-template-columns: 0.8fr 1fr;
+    gap: 1rem;
+}
+
+/* Contact Mssg Styles */
+.contact-info-container {
+
+    p {
+        font-size: 0.8rem;
+    }
+
+}
+
+.contact-info {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-items: center;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding: 0.5rem;
+    transition: transform 0.3s ease-in-out;
+
+    p {
+        font-size: 1rem;
+    }
+
+    svg {
+        width: 2rem;
+        height: auto;
+        margin-left: 1rem;
+    }
+}
+
+/* Form Styles */
+.form-container {
+
+    form {
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        grid-template-columns: auto;
+        gap: 1rem;
+        margin: 2rem 1rem;
+
+        >div {
+
+            display: flex;
+            gap: 0.8rem;
+
+            input {
+                width: 50%;
+                padding: 0.5rem;
+                font-size: 0.7rem;
+            }
+        }
+
+        .card {
+            box-shadow: none;
+        }
+
+        textarea {
+            font-size: 1rem;
+            min-height: 8rem;
+            padding: 0.5rem;
+            border-right-color: var(--col-drkmode-bg);
+            border-bottom-color: var(--col-drkmode-bg);
+            border-right-width: 0.15rem;
+            border-bottom-width: 0.15rem;
+        }
+
+        button {
+            display: block;
+            min-height: 3rem;
+            background-color: var(--col-prim-azraeth);
+            color: var(--col-bg-cont);
+            display: flex;
+            gap: 0 0.5rem;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        button svg {
+            color: var(--col-bg-cont);
+        }
+
+        input:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--col-prim-azraeth);
+        }
+    }
+}
+
+/* Dark Mode Styles */
+body.drkModeOn .contact-info svg {
+    color: var(--col-bg-cont);
+}
+
+body.drkModeOn form.contact-form input,
+body.drkModeOn form.contact-form textarea {
+    color: var(--col-bg-cont);
+}
+
+body.drkModeOn input::placeholder,
+body.drkModeOn textarea::placeholder {
+    color: var(--colo-drkmode-fx);
+}
+
+body.drkModeOn form.contact-form button {
+    background-color: var(--col-prim-azraeth);
+}
+
+
+
+/* ==================================================
+                 FOOTER
+   ================================================== */
+footer {
+    min-height: 6rem;
+    margin: 1rem;
+    background-color: #E9E9E990;
+    box-shadow: 0px 0.25rem 0.25rem 0px rgba(0, 0, 0, 0.25);
+    display: grid;
+    grid-template-columns: 0.4fr 1fr 0.2fr;
+    align-items: center;
+    justify-items: center;
+
+    p {
+        font-size: 0.7rem;
+    }
+
+    svg.imagotype {
+        width: 60%;
+        height: auto;
+    }
+
+    .to-top-btton-container {
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        p {
+            margin-top: 0.5rem;
+            text-align: center;
+        }
+    }
+
+    button {
+        display: flex;
+        align-items: center;
+        justify-items: center;
+        padding: 0.5rem;
+        color: var(--col-bg-cont);
+        background-color: var(--col-prim-azraeth);
+        border: 0.1rem solid var(--colo-drkmode-fx);
+        border-radius: 100%;
+        box-shadow: 0px 0.25rem 0.25rem 0px rgba(0, 0, 0, 0.25);
+        cursor: pointer;
+    }
+
+}
+
+/* Dark Mode Styles */
+
+body.drkModeOn footer {
+    background-color: #1A1A1A90;
+
+    svg {
+        path {
+            fill: var(--col-bg-cont);
+        }
+    }
+}
+
+/* ==================================================
+                 MEDIA QUERIES
+   ================================================== */
+
+/* ==================================
+      HOVER [FOR NON-MOBILE DEVICES]
+   ================================== */
+@media (hover: hover) {
+
+    /*_____________All Links_____________*/
+
+    a:hover {
+        color: var(--col-prim-azraeth);
+    }
+
+    body.drkModeOn a:hover {
+        color: var(--col-prim-azraeth);
+    }
+
+    /*_____________Navbar Links______________*/
+
+    .navbar-links a,
+    .navbar-links svg {
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .navbar-links a.scale-anim:hover {
+        display: block;
+        transform: scale(1.5);
+    }
+
+    .navbar-links .lang:hover {
+        transform: scale(1.5);
+        fill: var(--col-prim-azraeth);
+    }
+
+    body.drkModeOn .lang:hover {
+        svg {
+            fill: var(--col-prim-azraeth);
+        }
+    }
+
+    /*__________Aside Links___________*/
+    .social.card:hover {
+        transform: translateY(-0.5rem);
+    }
+
+    aside .card:hover svg {
+        color: var(--col-prim-azraeth);
+    }
+
+    .download-cv:hover {
+        transform: translateY(-0.5rem);
+    }
+
+    body.drkModeOn aside .card:hover svg {
+        color: var(--col-prim-azraeth);
+    }
+
+    /*__________Skills Links___________*/
+
+    .tabs ul li button[data-active="false"]:hover {
+        background-color: var(--col-sec-azraeth);
+    }
+
+    section.certifications {
+
+        details summary:hover {
+            text-decoration: underline;
+            color: var(--col-sec-azraeth);
+        }
+
+        /* anim certifications card */
+        a:hover {
+            transform: translateY(-1rem);
+        }
+    }
+
+    /*__________Projects Links___________*/
+
+    /* anim projects card */
+    section.projects a:hover {
+        transform: translateY(-1rem);
+    }
+
+    /*__________Contact Links___________*/
+    .contact-info:hover {
+        transform: translateY(-0.5rem);
+
+        svg {
+            color: var(--col-prim-azraeth);
+        }
+    }
+
+    body.drkModeOn a.contact-info:hover svg {
+        color: var(--col-prim-azraeth);
+    }
+
+    form.contact-form button:hover {
+        background-color: var(--col-tert-azraeth);
+    }
+
+    body.drkModeOn form.contact-form button:hover {
+        background-color: var(--col-tert-azraeth);
+    }
+
+    /*__________Footer Links___________*/
+    footer button:hover {
+        background-color: var(--col-tert-azraeth);
+    }
+}
+
+@media (orientation: landscape) {
+
+    /* Escalating to HD */
+    @media (height >=940px) {
+        html {
+            font-size: 24px;
+        }
+    }
+
+    /* Escalating to 2K */
+    @media (height >=1440px) {
+        html {
+            font-size: 32px;
+        }
+    }
+
+    /* Escalating to 4k */
+    @media (height >=2160px) {
+        html {
+            font-size: 48px;
+        }
+    }
+
+}
+
+/* ==================================
+            MOBILE STYLES
+   ================================== */
+
+@media (orientation: portrait),
+(orientation: landscape) and (pointer: coarse),
+(orientation: landscape) and (max-aspect-ratio: 16/10) {
+
+    /* ==================================
+      REPLACE HOVER [FOR MOBILE DEVICES]
+   ================================== */
+    @media (pointer: coarse) {
+        a:active {
+            color: var(--col-prim-azraeth);
+        }
+
+        body.drkModeOn a:active {
+            color: var(--col-prim-azraeth);
+        }
+
+        /*_____________Navbar Links______________*/
+
+        .navbar-links .lang:active {
+            fill: var(--col-prim-azraeth);
+        }
+
+        body.drkModeOn .lang:active {
+            fill: var(--col-prim-azraeth);
+        }
+
+        /*__________Aside Links___________*/
+        .social.card:active {
+            transform: translateY(-0.5rem);
+        }
+
+        aside .card:active svg {
+            color: var(--col-prim-azraeth);
+        }
+
+        .download-cv:active {
+            transform: translateY(-0.5rem);
+        }
+
+        body.drkModeOn aside .card:active svg {
+            color: var(--col-prim-azraeth);
+        }
+
+
+
+        /*__________Skills Links___________*/
+
+        .tabs ul li button[data-active="false"]:active {
+            background-color: var(--col-sec-azraeth);
+        }
+
+        section.certifications {
+
+            details summary:active {
+                text-decoration: underline;
+                color: var(--col-sec-azraeth);
+            }
+
+            /* anim certifications card */
+            a:active {
+                transform: translateY(-1rem);
+            }
+        }
+
+        /*__________Projects Links___________*/
+
+        /* anim projects card */
+        section.projects a:active {
+            transform: translateY(-1rem);
+        }
+
+        /*__________Contact Links___________*/
+        .contact-info:active {
+            transform: translateY(-0.5rem);
+
+            svg {
+                color: var(--col-prim-azraeth);
+            }
+        }
+
+        form.contact-form button:active {
+            background-color: var(--col-tert-azraeth);
+        }
+
+        body.drkModeOn form.contact-form button:active {
+            background-color: var(--col-tert-azraeth);
+        }
+
+        /*__________Footer Links___________*/
+        footer button:active {
+            background-color: var(--col-tert-azraeth);
+        }
+    }
+
+    html {
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+        grid-template-areas: none;
+    }
+
+    /* ==============
+            NAVBAR
+      =============== */
+
+    /* hide navbar */
+    .navbar.active {
+        transform: translateY(0);
+    }
+
+    /* show navbar menu btton */
+    .navbar-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* change navbar structure */
+    .navbar {
+        transform: translateY(-100%);
+        flex-direction: column;
+        justify-content: center;
+        width: 100vw;
+        height: 50vh;
+        background-color: var(--col-nav-bg);
+        opacity: 99%;
+        gap: 1rem;
+        transition: transform 0.3s ease;
+    }
+
+    .logo {
+        font-size: 2rem;
+        margin: 0;
+    }
+
+    .navbar-links {
+        flex-direction: column;
+        gap: 1rem;
+        margin: 0;
+
+        a.lang {
+            align-items: center;
+        }
+    }
+
+    /* ==============
+            ASIDE
+      =============== */
+
+    /* show aside btton */
+    .aside-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Reset animation */
+    .typing-anim {
+        animation: none;
+    }
+
+    /* show aside */
+    aside.active {
+        transform: translateX(0);
+
+        /* start animation when aside is active */
+        .typing-anim {
+
+            animation: typing 2.3s steps(30, end) forwards,
+                blink-caret .75s step-end infinite;
+        }
+    }
+
+    /* change aside structure */
+    aside {
+        grid-template-rows: auto;
+        grid-template-columns: auto;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        z-index: 2;
+        transform: translateX(-100%);
+
+    }
+
+    /* Presentation card */
+    .presentation {
+        margin-bottom: 1rem;
+
+        .profile-pic {
+            place-self: center;
+            max-height: 10rem;
+        }
+
+        *:not(:first-child) {
+            margin-left: 1rem;
+        }
+
+        .presentation-title {
+            font-size: 2.5rem;
+        }
+
+        .presentation-subtitle {
+            font-size: 1.2rem;
+        }
+    }
+
+    /* social bttons */
+    .social {
+        padding: 0.5rem 1rem;
+        margin-bottom: 1rem;
+
+        svg {
+            width: 2rem;
+        }
+    }
+
+    /* .download-cv */
+    .download-cv {
+        padding: 0.4rem 1rem;
+        margin-bottom: 0.5rem;
+
+        svg {
+            width: 2rem;
+        }
+    }
+
+    /* ==============
+            MAIN
+      =============== */
+
+    section.main-sections h2 {
+        margin: 0;
+        padding-top: 3.5vh;
+        font-size: 2rem;
+    }
+
+    /* change main to 100% width */
+    main {
+        transition: margin-left 0.3s ease;
+        width: 100%;
+    }
+
+    /* ==============
+            SKILLS
+      =============== */
+
+    .tabs-content section svg {
+        width: 2rem;
+    }
+
+    section.certifications {
+
+        details>div {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+
+    /* ==============
+            CONTACT
+      =============== */
+
+    section.contact {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+
+    .contact-info-container {
+        p {
+            font-size: 1rem;
+        }
+    }
+
+    .contact-info {
+
+        p {
+            font-size: 1rem;
+        }
+    }
+
+    /* Scaling for mobile devices in landscape mode*/
+
+    @media (orientation: landscape) and (pointer: coarse) {
+        @media (height < 450px) {
+            html {
+                font-size: 12px;
+            }
+
+            section.main-sections h2 {
+                padding-top: 8vh;
+            }
+
+            .navbar {
+                height: 100%;
+                gap: 2rem;
+            }
+
+            .logo {
+                font-size: 3rem;
+            }
+
+            .navbar-links {
+                flex-direction: row;
+                margin-bottom: 1rem;
+                gap: 0 1.5rem;
+
+                a {
+                    font-size: 1.2rem;
+                }
+
+                svg {
+                    width: 1.2rem;
+                }
+            }
+
+            .navbar-toggle {
+                height: 8vh;
+            }
+
+            .aside-toggle {
+                width: 4.5rem;
+                height: 4rem;
+            }
+
+            aside {
+
+                width: 100%;
+                height: 100%;
+                grid-template-areas:
+                    "presentation-card social-media-cards social-media-cards"
+                    "presentation-card social-media-cards social-media-cards"
+                    "presentation-card download-cv-icon download-cv-icon";
+
+                grid-template-rows: 1fr 1fr;
+                grid-template-columns: 1.7fr 1fr;
+            }
+
+            .presentation {
+                .presentation-title {
+                    margin-bottom: 0;
+                }
+
+                .presentation-subtitle {
+                    margin-bottom: 0;
+                }
+            }
+
+            .social-media-container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            .social-media-container a {
+                margin: 0;
+            }
+
+            .download-cv {
+                margin-bottom: 1rem;
+            }
+
+            .tabs-content section svg {
+                width: 3rem;
+            }
+        }
+    }
+
+    /* Scaling for HD Monitors in Vertical Mode */
+    @media (width >=940px) {
+        html {
+            font-size: 24px;
+        }
+    }
+
+    /* Scaling for 2K Monitors in Vertical Mode */
+    @media (width >=1440px) {
+        html {
+            font-size: 32px;
+        }
+    }
+
+    /* Scaling for 4k Monitors Vertical Mode */
+    @media (width >=2160px) {
+        html {
+            font-size: 64px;
+        }
+    }
+
+}
